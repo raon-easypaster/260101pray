@@ -11,8 +11,322 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- html2canvas Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-app: #f0f2f5;
+            --header-bg: #1a1a1a;
+            --card-bg: #ffffff;
+            --text-primary: #333333;
+            --text-placeholder: #adb5bd;
+            --accent-red: #ff4757;
+
+            --color-pink: #ff6b81;
+            --bg-pink: #fff0f3;
+
+            --color-yellow: #ffa502;
+            --bg-yellow: #fffdf0;
+
+            --color-blue: #3742fa;
+            --bg-blue: #f0f4ff;
+
+            --color-green: #2ed573;
+            --bg-green: #f0fff4;
+
+            --color-purple: #8e44ad;
+            --bg-purple: #f8f0ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .prayer-card {
+            width: 100%;
+            background-color: var(--card-bg);
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-section {
+            background-color: var(--header-bg);
+            padding: 40px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            background-color: rgba(255, 107, 107, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .year-title {
+            color: var(--accent-red);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .main-quote {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.6rem;
+            line-height: 1.4;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            word-break: keep-all;
+        }
+
+        .quote-mark {
+            color: #444;
+            font-size: 2rem;
+            position: absolute;
+            top: -10px;
+            left: -20px;
+            font-family: serif;
+        }
+
+        .bible-verse {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .content-section {
+            background-color: var(--card-bg);
+            padding: 30px 20px;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Name Signature Styling */
+        .name-signature-area {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+            padding-right: 10px;
+        }
+
+        .name-label {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-right: 10px;
+            color: #555;
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .name-input-line {
+            border: none;
+            border-bottom: 2px solid #ddd;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            width: 120px;
+            text-align: center;
+            background: transparent;
+            padding: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .name-input-line:focus {
+            border-bottom-color: var(--accent-red);
+        }
+
+        .name-input-line::placeholder {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        /* Input Cards */
+        .input-card {
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .card-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .card-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            resize: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            outline: none;
+            min-height: 80px;
+            overflow: hidden;
+        }
+
+        textarea::placeholder {
+            color: var(--text-placeholder);
+            opacity: 1;
+        }
+
+        /* Themes per card */
+        .card-pink {
+            background-color: var(--bg-pink);
+            border-color: #ffdce0;
+        }
+
+        .card-pink .card-label,
+        .card-pink .card-icon {
+            color: var(--color-pink);
+        }
+
+        .card-yellow {
+            background-color: var(--bg-yellow);
+            border-color: #ffeaa7;
+        }
+
+        .card-yellow .card-label,
+        .card-yellow .card-icon {
+            color: var(--color-yellow);
+        }
+
+        .card-blue {
+            background-color: var(--bg-blue);
+            border-color: #dfe4ff;
+        }
+
+        .card-blue .card-label,
+        .card-blue .card-icon {
+            color: var(--color-blue);
+        }
+
+        .card-green {
+            background-color: var(--bg-green);
+            border-color: #c8f7c5;
+        }
+
+        .card-green .card-label,
+        .card-green .card-icon {
+            color: var(--color-green);
+        }
+
+        .card-purple {
+            background-color: var(--bg-purple);
+            border-color: #e5dff5;
+        }
+
+        .card-purple .card-label,
+        .card-purple .card-icon {
+            color: var(--color-purple);
+        }
+
+
+        .footer-note {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #ccc;
+            font-weight: 300;
+        }
+
+        /* Action Area */
+        .action-area {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            background-color: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            background-color: #333;
+        }
+
+        .btn-appsheet {
+            background-color: #3742fa;
+        }
+
+        .btn-appsheet:hover {
+            background-color: #2f35d0;
+        }
+
+        .guide-text {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: -10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,13 +352,13 @@
                     <span class="quote-mark-end">”</span>
                 </div>
 
-                <div class="bible-verse">(역대상 4장 10절)</div>
+                <div class="bible-verse">(갈라디아서 6:17)</div>
             </div>
 
             <!-- White Content Section -->
             <div class="content-section">
 
-                <!-- Name Signature Area (New) -->
+                <!-- Name Signature Area -->
                 <div class="name-signature-area">
                     <span class="name-label">작성자</span>
                     <input type="text" id="username" class="name-input-line" placeholder="이름을 입력하세요">
@@ -134,7 +448,156 @@
         <p class="guide-text">* 제출 버튼을 누르면 교구 담당자에게 전송됩니다.</p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Auto-resize textarea
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', autoResize, false);
+        });
+
+        function autoResize() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        }
+
+        function saveImage() {
+            const card = document.querySelector("#prayer-card");
+            const filename = `2026_Prayer_Card_${getCurrentDateString()}.png`;
+
+            const btn = document.getElementById('save-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '저장 중...';
+            btn.disabled = true;
+
+            // 1. 캡쳐 전처리: textarea를 div로 변환 (글자 잘림 방지)
+            const textareas = card.querySelectorAll('textarea');
+            
+            textareas.forEach((textarea, index) => {
+                const div = document.createElement('div');
+                div.className = textarea.className;
+                div.style.cssText = window.getComputedStyle(textarea).cssText;
+
+                // 중요: div로 변환 시 스타일 강제 조정
+                div.style.height = 'auto';
+                div.style.minHeight = textarea.style.minHeight;
+                div.style.whiteSpace = 'pre-wrap'; // 줄바꿈 유지
+                div.style.overflow = 'visible';
+                div.innerText = textarea.value; // 내용 복사
+
+                // 텍스트가 비어있으면 공백 유지 (레이아웃 틀어짐 방지)
+                if (!div.innerText.trim()) {
+                    div.innerHTML = '&nbsp;';
+                    div.style.minHeight = '80px'; // 기본 높이 유지
+                }
+
+                // 기존 textarea 숨기고 div 삽입
+                textarea.style.display = 'none';
+                textarea.parentNode.insertBefore(div, textarea);
+
+                // 나중에 복구하기 위해 식별 클래스 추가
+                div.classList.add('temp-capture-div');
+            });
+
+            // 2. html2canvas 실행
+            html2canvas(card, {
+                scale: 2,
+                backgroundColor: null,
+                logging: false,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+
+                cleanup();
+            }).catch(err => {
+                console.error("Image save failed:", err);
+                alert("이미지 저장에 실패했습니다.");
+                cleanup();
+            });
+
+            // 3. 복구 함수
+            function cleanup() {
+                const tempDivs = card.querySelectorAll('.temp-capture-div');
+                tempDivs.forEach(div => div.remove());
+
+                textareas.forEach(textarea => {
+                    textarea.style.display = 'block';
+                });
+
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function getCurrentDateString() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${year}${month}${day}`;
+        }
+
+        // ---------------------------------------------------------
+        // AppSheet / Google Sheets Submission Logic
+        // ---------------------------------------------------------
+        async function submitToEmail() {
+            const username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert("작성자 성함을 입력해주세요.");
+                document.getElementById('username').focus();
+                return;
+            }
+
+            const targetEmail = "galeb76@naver.com";
+
+            const confirmMsg = `${username}님의 기도제목을 전송하시겠습니까?\n(새 창이 열리면 전송 확인을 진행해주세요)`;
+            if (!confirm(confirmMsg)) return;
+
+            // 동적으로 폼 생성
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `https://formsubmit.co/${targetEmail}`;
+            form.target = '_blank'; // 새 탭에서 열기 (보안 및 캡차 해결용)
+
+            // 중요: 폼 데이터 필드명(Key)을 영문으로 변경하여 전송 신뢰도 향상
+            const fields = {
+                '_subject': `[2026 기도카드] ${username}님의 기도제목`,
+                '_template': 'table',
+                '_captcha': 'false', 
+                
+                // 데이터 필드 (영문 Key 사용)
+                'Name': username,
+                'Q1_Personal': document.getElementById('q1').value,
+                'Q2_Growth': document.getElementById('q2').value,
+                'Q3_Relationship': document.getElementById('q3').value,
+                'Q4_World': document.getElementById('q4').value,
+                'Q5_Special': document.getElementById('q5').value
+            };
+
+            // UTF-8 인코딩 명시
+            const charsetInput = document.createElement('input');
+            charsetInput.type = 'hidden';
+            charsetInput.name = '_charset_';
+            charsetInput.value = 'UTF-8';
+            form.appendChild(charsetInput);
+
+            // 폼에 입력값 추가
+            for (const key in fields) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+    </script>
 </body>
 
 </html>
