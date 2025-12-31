@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 기도제목 카드</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+        <!-- Capture Target -->
+        <div id="prayer-card" class="prayer-card">
+
+            <!-- Dark Header Section -->
+            <div class="header-section">
+                <div class="header-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19M5 12H19" stroke="#FF6B6B" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+
+                <div class="year-title">2 0 2 6 &nbsp; P R A Y E R &nbsp; C O V E N A N T</div>
+
+                <div class="main-quote">
+                    <span class="quote-mark">“</span>
+                    하나님이 그가 구하는 것을<br>허락하셨더라
+                    <span class="quote-mark-end">”</span>
+                </div>
+
+                <div class="bible-verse">(갈라디아서 6:17)</div>
+            </div>
+
+            <!-- White Content Section -->
+            <div class="content-section">
+
+                <!-- Name Signature Area (New) -->
+                <div class="name-signature-area">
+                    <span class="name-label">작성자</span>
+                    <input type="text" id="username" class="name-input-line" placeholder="이름을 입력하세요">
+                </div>
+
+                <!-- Card 1: Personal -->
+                <div class="input-card card-pink">
+                    <div class="card-label">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                        나를 위한 기도
+                    </div>
+                    <textarea id="q1" placeholder="나의 내면과 성품을 위한 기도를 구체적으로 적어보세요."></textarea>
+                </div>
+
+                <!-- Card 2: Growth -->
+                <div class="input-card card-yellow">
+                    <div class="card-label">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                        성장을 위한 기도
+                    </div>
+                    <textarea id="q2" placeholder="영적 성장과 훈련을 위한 실천 다짐을 적어보세요."></textarea>
+                </div>
+
+                <!-- Card 3: Relationship -->
+                <div class="input-card card-blue">
+                    <div class="card-label">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        관계를 위한 기도
+                    </div>
+                    <textarea id="q3" placeholder="가족, 이웃과의 관계 속에 남길 사랑의 흔적을 적어보세요."></textarea>
+                </div>
+
+                <!-- Card 4: World -->
+                <div class="input-card card-green">
+                    <div class="card-label">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M2 12h20"></path>
+                            <path
+                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                        </svg>
+                        세상을 위한 기도
+                    </div>
+                    <textarea id="q4" placeholder="나라와 열방을 향한 하나님의 마음을 구해보세요."></textarea>
+                </div>
+
+                <!-- Card 5: Special -->
+                <div class="input-card card-purple">
+                    <div class="card-label">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        특별한 기도제목
+                    </div>
+                    <textarea id="q5" placeholder="나만의 특별한 간구를 적어보세요."></textarea>
+                </div>
+
+                <div class="footer-note">
+                    라온동행교회
+                </div>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <button id="save-btn" onclick="saveImage()" class="btn-action">
+                <span class="btn-icon">📸</span> 이미지 저장
+            </button>
+            <button id="submit-btn" onclick="submitToEmail()" class="btn-action btn-appsheet">
+                <span class="btn-icon">📤</span> 기도제목 제출
+            </button>
+        </div>
+        <p class="guide-text">* 제출 버튼을 누르면 교구 담당자에게 전송됩니다.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
